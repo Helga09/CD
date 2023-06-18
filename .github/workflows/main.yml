@@ -22,14 +22,10 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       -
-        name: Determine version
-        id: determine_version
-        run: echo "::set-output name=version::v0.0.$(( $(git rev-list --count HEAD) + 1 ))"
-      -
         name: Build and push
         uses: docker/build-push-action@v4
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USER }}/test:${{ steps.determine_version.outputs.version }}
+          tags: ${{ secrets.DOCKER_USER }}/test:latest
